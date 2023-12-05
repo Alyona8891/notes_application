@@ -1,7 +1,7 @@
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
-import { editNote } from '../../../store/reducers/notesReducer';
+import { editNote, setEditedNote } from '../../../store/reducers/notesReducer';
 import { addTags, clearTags } from '../../../store/reducers/inputTagsReducer';
 import styles from './EditNoteForm.module.scss';
 import { NoteInput } from '../NoteInput/NoteInput';
@@ -36,6 +36,13 @@ export function EditNoteForm(): React.ReactElement {
 
   const onSubmit: SubmitHandler<FieldValues> = (note) => {
     dispatch(editNote({ index: editedNoteIndex, value: note }));
+    dispatch(setEditedNote(null));
+    reset();
+    dispatch(clearTags());
+  };
+
+  const handleCancelButton = () => {
+    dispatch(setEditedNote(null));
     reset();
     dispatch(clearTags());
   };
@@ -51,6 +58,13 @@ export function EditNoteForm(): React.ReactElement {
       })}
       <button className={styles.save_button} type="submit" disabled={!isDirty}>
         Save note
+      </button>
+      <button
+        className={styles.save_button}
+        onClick={handleCancelButton}
+        type="button"
+      >
+        Cancel
       </button>
     </form>
   );

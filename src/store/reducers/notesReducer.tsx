@@ -26,10 +26,10 @@ export const notesSlice = createSlice({
     },
     editNote: (state, action) => {
       const { index, value } = action.payload;
-      const tagsArr: string[] | [] = value
+      const tagsArr: string[] | [] = value.note
         .split(' ')
         .filter((el: string) => el.match(/#/));
-      state.notes[index].text = value;
+      state.notes[index].text = value.note;
       state.notes[index].tags = tagsArr;
     },
     setEditedNote: (state, action) => {

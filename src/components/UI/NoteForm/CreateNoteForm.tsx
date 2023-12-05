@@ -1,7 +1,7 @@
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNote } from '../../../store/reducers/notesReducer';
-import styles from './NoteForm.module.scss';
+import styles from './CreateNoteForm.module.scss';
 import { NoteInput } from '../NoteInput/NoteInput';
 import { RootState } from '../../../store/store';
 import { clearTags } from '../../../store/reducers/inputTagsReducer';
