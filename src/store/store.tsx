@@ -1,11 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { notesReducer } from './reducers/notesReducer';
+import { inputTagsReducer } from './reducers/inputTagsReducer';
+
+const rootReducer = combineReducers({
+  inputTags: inputTagsReducer,
+  notes: notesReducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    notes: notesReducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
