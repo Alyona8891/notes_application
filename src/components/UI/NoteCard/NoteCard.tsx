@@ -31,9 +31,10 @@ export function NoteCard(props: { note: INoteState; index: number }) {
         </Typography>
       </CardContent>
       <CardContent sx={{ flexGrow: '1' }}>
-        {note.tags.map((tag) => {
+        {note.tags.map((tag, ndx) => {
           return (
             <Typography
+              key={ndx}
               gutterBottom
               component="span"
               sx={{ marginRight: '5px', fontSize: '10px' }}

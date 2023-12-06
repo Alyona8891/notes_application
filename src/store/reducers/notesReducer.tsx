@@ -6,12 +6,19 @@ export const initialState: {
   editedNote: null | number;
   filteredNotes: INoteState[];
   activeFilters: string[];
-} = {
-  notes: [],
-  editedNote: null,
-  filteredNotes: [],
-  activeFilters: [],
-};
+} = localStorage.getItem('Alyona8891notes')
+  ? {
+      notes: JSON.parse(localStorage.getItem('Alyona8891notes') as string),
+      editedNote: null,
+      filteredNotes: [],
+      activeFilters: [],
+    }
+  : {
+      notes: [],
+      editedNote: null,
+      filteredNotes: [],
+      activeFilters: [],
+    };
 
 export const notesSlice = createSlice({
   name: 'notes',
@@ -25,10 +32,12 @@ export const notesSlice = createSlice({
         text: action.payload,
         tags: tagsArr,
       });
+      localStorage.setItem('Alyona8891notes', JSON.stringify(state.notes));
     },
     deleteNote: (state, action) => {
       const currentState = state;
       state.notes = currentState.notes.filter((_, i) => i !== action.payload);
+      localStorage.setItem('Alyona8891notes', JSON.stringify(state.notes));
     },
     editNote: (state, action) => {
       const { index, value } = action.payload;
@@ -37,6 +46,7 @@ export const notesSlice = createSlice({
         .filter((el: string) => el.match(/#/));
       state.notes[index].text = value.note;
       state.notes[index].tags = tagsArr;
+      localStorage.setItem('Alyona8891notes', JSON.stringify(state.notes));
     },
     setEditedNote: (state, action) => {
       state.editedNote = action.payload;
