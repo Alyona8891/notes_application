@@ -37,7 +37,7 @@ export function NoteCard(props: { note: INoteState; index: number }) {
               key={ndx}
               gutterBottom
               component="span"
-              sx={{ marginRight: '5px', fontSize: '10px' }}
+              sx={{ marginRight: '5px', fontSize: '12px' }}
             >
               {tag}
             </Typography>
