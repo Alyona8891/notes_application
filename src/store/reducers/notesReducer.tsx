@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { INoteState } from '../../types/types';
 
-export const initialState: { notes: INoteState[]; editedNote: null | number } =
-  {
-    notes: [],
-    editedNote: null,
-  };
+export const initialState: {
+  notes: INoteState[];
+  editedNote: null | number;
+  filteredNotes: INoteState[];
+  activeFilters: string[];
+} = {
+  notes: [],
+  editedNote: null,
+  filteredNotes: [],
+  activeFilters: [],
+};
 
 export const notesSlice = createSlice({
   name: 'notes',
@@ -35,9 +41,31 @@ export const notesSlice = createSlice({
     setEditedNote: (state, action) => {
       state.editedNote = action.payload;
     },
+    addActiveFilter: (state, action) => {
+      state.activeFilters.push(action.payload);
+    },
+    deleteActiveFilter: (state, action) => {
+      state.activeFilters = state.activeFilters.filter(
+        (filter) => filter !== action.payload
+      );
+    },
+    setFilteredNotes: (state) => {
+      for (const key of state.activeFilters) {
+        state.filteredNotes = state.notes.filter((note) =>
+          note.tags.includes(key as never)
+        );
+      }
+    },
   },
 });
 
-export const { addNote, deleteNote, editNote, setEditedNote } =
-  notesSlice.actions;
+export const {
+  addNote,
+  deleteNote,
+  editNote,
+  setEditedNote,
+  setFilteredNotes,
+  addActiveFilter,
+  deleteActiveFilter,
+} = notesSlice.actions;
 export const notesReducer = notesSlice.reducer;
