@@ -60,11 +60,13 @@ export const notesSlice = createSlice({
       );
     },
     setFilteredNotes: (state) => {
+      let currentState = state.notes;
       for (const key of state.activeFilters) {
-        state.filteredNotes = state.notes.filter((note) =>
+        currentState = currentState.filter((note) =>
           note.tags.includes(key as never)
         );
       }
+      state.filteredNotes = currentState;
     },
   },
 });
