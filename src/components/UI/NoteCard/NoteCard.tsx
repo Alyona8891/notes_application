@@ -19,7 +19,7 @@ export function NoteCard(props: { note: INoteState; index: number }) {
   return (
     <Card
       sx={{
-        maxWidth: 250,
+        width: 250,
         marginBottom: '10px',
         display: 'flex',
         flexDirection: 'column',
@@ -43,7 +43,7 @@ export function NoteCard(props: { note: INoteState; index: number }) {
           );
         })}
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ display: 'flex', justifyContent: 'space-around' }}>
         <Button
           size="small"
           onClick={() => {
