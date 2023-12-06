@@ -6,6 +6,7 @@ import { addTags, clearTags } from '../../../store/reducers/inputTagsReducer';
 import styles from './EditNoteForm.module.scss';
 import { NoteInput } from '../NoteInput/NoteInput';
 import { useEffect } from 'react';
+import { Button } from '@mui/material';
 
 export function EditNoteForm(): React.ReactElement {
   const dispatch = useDispatch();
@@ -48,24 +49,40 @@ export function EditNoteForm(): React.ReactElement {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-      <label className={styles.input_block}>
-        <span>Change text of note</span>
-        <NoteInput register={register} />
-      </label>
-      {formTags.map((tag, ndx) => {
-        return <span key={ndx}>{tag}</span>;
-      })}
-      <button className={styles.save_button} type="submit" disabled={!isDirty}>
-        Save note
-      </button>
-      <button
-        className={styles.save_button}
-        onClick={handleCancelButton}
-        type="button"
+    <>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
       >
-        Cancel
-      </button>
-    </form>
+        <NoteInput label="Change text of note" register={register} />
+        <Button
+          variant="outlined"
+          size="medium"
+          type="submit"
+          disabled={!isDirty}
+          sx={{ marginRight: '5px' }}
+        >
+          Save note
+        </Button>
+        <Button
+          variant="outlined"
+          size="medium"
+          onClick={handleCancelButton}
+          type="button"
+        >
+          Cancel
+        </Button>
+      </form>
+      <div>
+        {formTags.map((tag, ndx) => {
+          return (
+            <span className={styles.tag} key={ndx}>
+              {tag}
+            </span>
+          );
+        })}
+      </div>
+    </>
   );
 }

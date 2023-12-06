@@ -5,6 +5,7 @@ import styles from './CreateNoteForm.module.scss';
 import { NoteInput } from '../NoteInput/NoteInput';
 import { RootState } from '../../../store/store';
 import { clearTags } from '../../../store/reducers/inputTagsReducer';
+import { Button } from '@mui/material';
 
 export function CreateNoteForm(): React.ReactElement {
   const dispatch = useDispatch();
@@ -27,17 +28,31 @@ export function CreateNoteForm(): React.ReactElement {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-      <label className={styles.input_block}>
-        <span>Enter text of note</span>
-        <NoteInput register={register} />
-      </label>
-      {formTags.map((tag, ndx) => {
-        return <span key={ndx}>{tag}</span>;
-      })}
-      <button className={styles.save_button} type="submit" disabled={!isDirty}>
-        Create note
-      </button>
-    </form>
+    <>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
+        <NoteInput label="Enter text of note" register={register} />
+        <Button
+          variant="outlined"
+          size="medium"
+          type="submit"
+          disabled={!isDirty}
+        >
+          Create note
+        </Button>
+      </form>
+      <div>
+        {formTags.map((tag, ndx) => {
+          return (
+            <span className={styles.tag} key={ndx}>
+              {tag}
+            </span>
+          );
+        })}
+      </div>
+    </>
   );
 }

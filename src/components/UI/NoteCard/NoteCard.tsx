@@ -4,30 +4,57 @@ import {
   setEditedNote,
 } from '../../../store/reducers/notesReducer';
 import { INoteState } from '../../../types/types';
-import styles from './NoteCard.module.scss';
 import { clearTags } from '../../../store/reducers/inputTagsReducer';
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+} from '@mui/material';
 
 export function NoteCard(props: { note: INoteState; index: number }) {
   const { note, index } = props;
   const dispatch = useDispatch();
   return (
-    <div className={styles.container}>
-      <h4>{note.text}</h4>
-      <div className={styles.tags_block}>
-        {note.tags.map((tag, ndx) => {
-          return <span key={ndx}>{tag}</span>;
+    <Card
+      sx={{
+        maxWidth: 250,
+        marginBottom: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <CardContent>
+        <Typography gutterBottom variant="h6">
+          {note.text}
+        </Typography>
+      </CardContent>
+      <CardContent sx={{ flexGrow: '1' }}>
+        {note.tags.map((tag) => {
+          return (
+            <Typography
+              gutterBottom
+              component="span"
+              sx={{ marginRight: '5px', fontSize: '10px' }}
+            >
+              {tag}
+            </Typography>
+          );
         })}
-      </div>
-      <div className={styles.buttons_block}>
-        <button
+      </CardContent>
+      <CardActions>
+        <Button
+          size="small"
           onClick={() => {
             dispatch(clearTags());
             dispatch(setEditedNote(index));
           }}
         >
           Edit
-        </button>
-        <button
+        </Button>
+        <Button
+          size="small"
           onClick={() => {
             dispatch(setEditedNote(null));
             dispatch(clearTags());
@@ -35,8 +62,8 @@ export function NoteCard(props: { note: INoteState; index: number }) {
           }}
         >
           Delete
-        </button>
-      </div>
-    </div>
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
