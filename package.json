@@ -10,9 +10,7 @@
     "preview": "vite preview",
     "lint-fix": "eslint . --ext ts,tsx --fix",
     "prepare": "husky install",
-    "fix": "prettier --write \"src/**/*.{js,ts,tsx}\"",
-    "test": "vitest",
-    "test-coverage": "vitest --coverage"
+    "fix": "prettier --write \"src/**/*.{js,ts,tsx}\""
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
